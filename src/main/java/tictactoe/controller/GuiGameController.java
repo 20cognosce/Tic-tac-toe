@@ -11,7 +11,6 @@ public interface GuiGameController {
     void fieldPressed (ActionEvent event) throws InstanceAlreadyExistsException;
     void help (ActionEvent event);
     void leave (ActionEvent event);
-    void offerDraw (ActionEvent event);
     void restartGame (ActionEvent event);
     void setPlayerService(PlayerService playerService);
     void setFieldService(FieldService fieldService);

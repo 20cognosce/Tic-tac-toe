@@ -150,12 +150,6 @@ public class GuiGameControllerImpl implements GuiGameController {
 
     @Override
     @FXML
-    public void offerDraw (ActionEvent event) {
-
-    }
-
-    @Override
-    @FXML
     public void restartGame (ActionEvent event) {
         fieldService.setField(new FieldImpl());
         playerService.restartGame(fieldService.getField());
