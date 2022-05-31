@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -63,27 +64,25 @@ public class ComputerPlayerImpl implements Player {
         }
         System.out.println(analyzeResults);
         decision = GetIndexToMove(new HashSet<>(emptyCells),emptyCells);
-        for(int i=0;i<sets.size();++i) {
-            if (analyzeResults.get(i) == 2) {
-                decision = GetIndexToMove(sets.get(i), emptyCells);
-            }
-        }
-        for(int i=0;i<sets.size();++i) {
-            if (analyzeResults.get(i) == -2) {
-                decision = GetIndexToMove(sets.get(i), emptyCells);
-            }
-        }
 
+        for(int i=0;i<sets.size();++i) {
+            if (analyzeResults.get(i).equals(2)) {
+                decision = GetIndexToMove(sets.get(i), emptyCells);
+                this.decision = decision;
+                return;
+            }
+        }
+        for(int i=0;i<sets.size();++i) {
+            if (analyzeResults.get(i).equals(-2)) {
+                decision = GetIndexToMove(sets.get(i), emptyCells);
+            }
+        }
         this.decision = decision;
     }
 
     private int GetIndexToMove(HashSet<Integer> set, List<Integer> emptyCells){
-        for (Integer cell: set
-             ) {
-            if (emptyCells.contains(cell))
-                return cell;
-        }
-        return 0;
+        Integer result = emptyCells.stream().filter(set::contains).findAny().orElse(0);
+        return result;
     }
 
     private Integer ScanElem(HashSet<Integer> set, List<Integer> cells){
